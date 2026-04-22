@@ -980,7 +980,7 @@ class RiskManagementSystem {
             risk: {
                 brouillon: ['draft'],
                 'a-valider': ['a-valider', 'a valider', 'to-validate', 'to validate'],
-                'validé': ['valide', 'validee', 'validé', 'valida', 'validate', 'validated'],
+                'validé': ['valide', 'validee', 'validé', 'validÃ©', 'valida', 'validate', 'validated'],
                 archive: ['archive', 'archived']
             },
             control: {
