@@ -1200,26 +1200,37 @@ function saveRisk() {
         };
     });
 
+    const descriptionInput = document.getElementById('description');
+    const statusInput = document.getElementById('statut');
+    const tiersSelect = document.getElementById('tiers');
+    const probBrutInput = document.getElementById('probBrut');
+    const impactBrutInput = document.getElementById('impactBrut');
+    const probNetInput = document.getElementById('probNet');
+    const impactNetInput = document.getElementById('impactNet');
+    const mitigationInput = document.getElementById('mitigationEffectiveness');
+
     const formData = {
         processus: processusAssocies[0] || '',
         processusAssocies,
         sousProcessus: sousProcessusAssocies[0] || '',
         sousProcessusAssocies,
-        description: document.getElementById('description').value,
+        description: descriptionInput ? descriptionInput.value : '',
         typeCorruption: typesCorruption[0] || '',
         typesCorruption,
-        statut: document.getElementById('statut').value,
-        tiers: Array.from(document.getElementById('tiers').selectedOptions).map(o => o.value),
+        statut: statusInput ? statusInput.value : '',
+        tiers: tiersSelect
+            ? Array.from(tiersSelect.selectedOptions).map(o => o.value)
+            : [],
         avantagesIndus: [...(riskBenefitsState.undue || [])],
         avantagesAttendus: [...(riskBenefitsState.expected || [])],
         paysExposes: countriesSelect
             ? Array.from(countriesSelect.selectedOptions).map(o => o.value)
             : [],
-        probBrut: parseInt(document.getElementById('probBrut').value),
-        impactBrut: parseInt(document.getElementById('impactBrut').value),
-        probNet: parseInt(document.getElementById('probNet').value),
-        impactNet: parseInt(document.getElementById('impactNet').value),
-        mitigationEffectiveness: document.getElementById('mitigationEffectiveness').value,
+        probBrut: parseInt(probBrutInput ? probBrutInput.value : '1', 10),
+        impactBrut: parseInt(impactBrutInput ? impactBrutInput.value : '1', 10),
+        probNet: parseInt(probNetInput ? probNetInput.value : '1', 10),
+        impactNet: parseInt(impactNetInput ? impactNetInput.value : '1', 10),
+        mitigationEffectiveness: mitigationInput ? mitigationInput.value : 'insuffisant',
         aggravatingFactors,
         aggravatingCoefficient,
         controls: [...selectedControlsForRisk],
