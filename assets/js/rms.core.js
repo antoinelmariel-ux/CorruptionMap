@@ -9238,7 +9238,7 @@ class RiskManagementSystem {
         if (!allRisks.length) {
             tbody.innerHTML = `
                 <tr>
-                    <td colspan="10" class="table-empty">No risk recorded</td>
+                    <td colspan="11" class="table-empty">No risk recorded</td>
                 </tr>
             `;
             return;
@@ -9247,7 +9247,7 @@ class RiskManagementSystem {
         if (!filteredRisks.length) {
             tbody.innerHTML = `
                 <tr>
-                    <td colspan="10" class="table-empty">No risk matches the filters</td>
+                    <td colspan="11" class="table-empty">No risk matches the filters</td>
                 </tr>
             `;
             return;
@@ -9278,6 +9278,13 @@ class RiskManagementSystem {
             const effectivenessLabel = netInfo.label ? ` (${netInfo.label})` : '';
 
             const typeLabel = resolveLabel(typeMap, risk.typeCorruption);
+            const processLabel = risk?.processus && String(risk.processus).trim()
+                ? this.getProcessLabel(String(risk.processus).trim())
+                : 'Not defined';
+            const subProcessLabel = risk?.sousProcessus && String(risk.sousProcessus).trim()
+                ? this.getSubProcessLabel(risk?.processus, String(risk.sousProcessus).trim())
+                : '';
+            const processPath = subProcessLabel ? `${processLabel} > ${subProcessLabel}` : processLabel;
             const tierLabels = Array.isArray(risk.tiers)
                 ? risk.tiers.map(tier => resolveLabel(tierMap, tier))
                 : [];
@@ -9313,6 +9320,7 @@ class RiskManagementSystem {
                 <tr>
                     <td>#${risk.id}</td>
                     <td>${risk.description}</td>
+                    <td>${processPath}</td>
                     <td>${typeLabel}</td>
                     <td>${tierLabels.join(', ')}</td>
                     <td>${entityLabels.join(', ')}</td>
